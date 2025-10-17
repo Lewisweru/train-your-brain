@@ -20,23 +20,17 @@ const AppNavigator = () => {
       initialRouteName="Welcome" 
       screenOptions={{ 
         headerShown: false,
-        animationEnabled: true,
+        animation: 'slide_from_right',
         gestureEnabled: false,
       }}
     >
       <Stack.Screen 
         name="Welcome" 
         component={WelcomeScreen}
-        options={{
-          animationTypeForReplace: 'push',
-        }}
       />
       <Stack.Screen 
         name="Login" 
         component={LoginScreen}
-        options={{
-          animationTypeForReplace: 'push',
-        }}
       />
       <Stack.Screen 
         name="Main" 
