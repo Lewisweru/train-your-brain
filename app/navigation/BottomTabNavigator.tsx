@@ -4,15 +4,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import TherapyStackNavigator from './TherapyStackNavigator';
+import { RouteProp } from '@react-navigation/native';
+
+type TabBarIconProps = {
+  focused: boolean;
+  color: string;
+  size: number;
+};
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+      screenOptions={({ route }: { route: RouteProp<Record<string, object | undefined>, string> }) => ({
+        tabBarIcon: ({ focused, color, size }: TabBarIconProps) => {
+          let iconName: string | undefined;
 
           if (route.name === 'Dashboard') {
             iconName = focused ? 'home' : 'home';
@@ -20,7 +27,11 @@ const BottomTabNavigator = () => {
             iconName = focused ? 'brain' : 'brain';
           }
 
-          return <FontAwesome5 name={iconName} size={size} color={color} />;
+          if (iconName) {
+            return <FontAwesome5 name={iconName} size={size} color={color} />;
+          }
+
+          return null;
         },
         tabBarActiveTintColor: '#667EEA',
         tabBarInactiveTintColor: 'gray',
